@@ -26,7 +26,7 @@ void ASGCharacter::BeginPlay()
 void ASGCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
 }
 
 void ASGCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -34,9 +34,18 @@ void ASGCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ASGCharacter::Jump);
+	PlayerInputComponent->BindAction(TEXT("Dash"), IE_Pressed, this, &ASGCharacter::Dash);
+	PlayerInputComponent->BindAction(TEXT("Dash"), IE_Released, this, &ASGCharacter::Dash);
 
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ASGCharacter::MoveForward);
 	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &ASGCharacter::MoveRight);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ASGCharacter::AddControllerYawInput);
 	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &ASGCharacter::AddControllerPitchInput);
+}
+
+void ASGCharacter::Dash()
+{
+	static bool bDash = false;
+	bDash = !bDash;
+	GetCharacterMovement()->MaxWalkSpeed = bDash ? 900.f : 600.f;
 }

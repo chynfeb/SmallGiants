@@ -18,6 +18,7 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
+	void Dash();
 	void MoveForward(const float AxisValue) { AddMovementInput(GetActorForwardVector(), AxisValue); }
 	void MoveRight(const float AxisValue) { AddMovementInput(GetActorRightVector(), AxisValue); }
 
